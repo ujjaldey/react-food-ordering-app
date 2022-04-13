@@ -1,7 +1,8 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import Cart from './components/Cart/Cart';
 import Header from './components/Layout/Header';
 import Meals from './components/Meals/Meals';
+import CartProvider from '../store/CartProvider';
 
 function App() {
   // we can use the state for showing the modal here as this is the top most component
@@ -15,8 +16,9 @@ function App() {
     setCartIsShown(false);
   }
 
+  // we call the CartProvider in App, as all the child components need to access to Cart state.
   return (
-    <Fragment>
+    <CartProvider>
       {/* show Cart if cartIsShown is true */}
       {cartIsShown && <Cart onCloseForCart={hideCartHandler} />}
       {/* instead of chaining this onShowCart, we can make use of context */}
@@ -24,7 +26,7 @@ function App() {
       <main>
         <Meals />
       </main>
-    </Fragment>
+    </CartProvider>
   );
 }
 
